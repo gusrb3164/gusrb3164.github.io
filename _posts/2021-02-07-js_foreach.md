@@ -2,6 +2,7 @@
 layout: post
 title: 자바스크립트 foreach와 for의 동기 비동기
 description: js foreach 사용할 때 for와 다르게 주의할 점
+categories: Web
 tags: [Programming, Backend]
 ---
 

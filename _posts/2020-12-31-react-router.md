@@ -2,6 +2,7 @@
 layout: post
 title: React Router 라우터 중첩 설정하기
 description: 리액트 라우터 설정 법
+categories: Web
 tags: [Programming, Web, Frontend]
 ---
 

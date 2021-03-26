@@ -2,6 +2,7 @@
 layout: post
 title: 카카오 코딩 테스트 알고리즘 기둥과 보 설치 C++
 description: 카카오 블라인드 채용 코딩 테스트
+categories: Algorithm
 tags: [Programming, Algorithm]
 ---
 

@@ -2,6 +2,7 @@
 layout: post
 title: 타입스크립트 React.FC 사용법
 description: 리액트 함수에 타입스크립트 React.FC 사용하기
+categories: Web
 tags: [Programming, frontend]
 ---
 

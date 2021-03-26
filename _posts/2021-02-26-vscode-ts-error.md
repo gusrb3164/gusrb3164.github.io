@@ -2,6 +2,7 @@
 layout: post
 title: 비주얼 스튜디오 코드 에서 타입스크립트 prettier 적용이 안될 때
 description: vscode 에서 typescript prettier 자동 적용이 안될 때 해결방법
+categories: Tip
 tags: [Programming, Tip]
 ---
 

@@ -2,6 +2,7 @@
 layout: post
 title: 쿠키와 세션의 개념 이해하기
 description: 웹에서의 인증 시스템 쿠키와 세션의 특징과 장단점
+categories: Web
 tags: [Web, CS]
 ---
 

@@ -2,6 +2,7 @@
 layout: post
 title: 비주얼 스튜디오 코드를 활용한 마크다운 뷰어 활용하기
 description: 마크다운 작성 시에 실시간으로 확인하기 어려운 점을 뷰어로 확인하면서 능률을 올려보자.
+categories: Tip
 tags: [Programming, Tip]
 ---
 

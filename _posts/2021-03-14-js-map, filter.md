@@ -2,6 +2,7 @@
 layout: post
 title: 자바스크립트 map, filter 직접 구현해보기
 description: 자바스크립트 배열 map, filter 기능 직접 구현해보기
+categories: Web
 tags: [Programming, javascript]
 ---
 

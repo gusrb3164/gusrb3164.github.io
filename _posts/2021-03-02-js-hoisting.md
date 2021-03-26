@@ -2,6 +2,7 @@
 layout: post
 title: 자바스크립트 호이스팅의 개념
 description: 자바스크립트의 특징중 하나인 호이스팅 이해하기
+categories: Web
 tags: [Programming, javascript]
 ---
 

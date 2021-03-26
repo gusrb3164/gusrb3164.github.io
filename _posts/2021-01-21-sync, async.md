@@ -2,6 +2,7 @@
 layout: post
 title: node js를 시작하기 위해 알아야 할 동기, 비동기
 description: 동기, 비동기 방식에 대한 개념과 node js 에서의 사용법
+categories: Web
 tags: [Programming]
 ---
 
