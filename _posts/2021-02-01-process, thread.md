@@ -2,7 +2,7 @@
 layout: post
 title: 프로세스와 스레드 개념잡기
 description: 프로세스와 스레드의 개념과 차이점
-categories: Computer Science
+categories: Computer-Science
 tags: [OS, CS]
 ---
 

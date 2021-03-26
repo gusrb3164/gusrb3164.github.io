@@ -2,7 +2,7 @@
 layout: post
 title: 대칭키와 공개키 이해하기
 description: 컴퓨터 보안 대칭키와 공개키의 개념
-categories: Computer Science
+categories: Computer-Science
 tags: [Security, CS]
 ---
 

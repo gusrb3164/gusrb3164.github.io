@@ -2,7 +2,7 @@
 layout: post
 title: 운영체제 세마포어와 뮤텍스 개념
 description: 멀티 프로세서에서 중요한 개념인 세마포어와 뮤텍스 이해하기
-categories: Computer Science
+categories: Computer-Science
 tags: [CS]
 ---
 

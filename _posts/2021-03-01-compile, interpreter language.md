@@ -2,7 +2,7 @@
 layout: post
 title: 컴파일 언어와 인터프리터 언어의 정의와 차이점
 description: 컴파일 언어와 인터프리터 언어의 개념을 이해하자.
-categories: Computer Science
+categories: Computer-Science
 tags: [Programming]
 ---
 

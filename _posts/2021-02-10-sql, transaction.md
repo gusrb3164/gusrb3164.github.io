@@ -2,7 +2,7 @@
 layout: post
 title: sql의 종류와 트랜잭션의 특성
 description: sql의 종류와 트랜잭션의 정의와 특성
-categories: Computer Science
+categories: Computer-Science
 tags: [CS, DB]
 ---
 
