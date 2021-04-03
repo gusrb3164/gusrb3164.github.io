@@ -1,0 +1,3 @@
+ser-agent: *
+Allow: /
+Sitemap: http://gusrb3164.github.io/sitemap.xml
