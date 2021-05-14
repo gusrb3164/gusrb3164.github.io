@@ -106,7 +106,7 @@ const About = () => {
 export default About;
 ```
 
-![result](/assets/images/posts/recoil-test.jpg)
+![result](/assets/images/posts/recoil-test.JPG)
 
 input 값의 변경에 따라 값이 잘 변경되는걸 확인할 수 있다.
 
