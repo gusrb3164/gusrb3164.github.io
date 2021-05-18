@@ -34,7 +34,7 @@ Array.prototype.myforEach = function (callback, context) {
 
 이러한 기능을 파악한뒤 Array 객체의 프로토타입에 myforEach라는 직접 제작한 함수를 할당하면 된다.
 
-참고로 this context를 call 메서드를 이용해서 해당 함수를 호출하며, this가 undefined가 되면 문제가 생기기 때문에 context||null 구문을 추가해서 할당하지 않을 때는 null값을 주도록 설정했다.
+참고로 this context를 call 메서드를 이용해서 해당 함수를 호출하며, this가 undefined가 되면 문제가 생기기 때문에 context\|\|null 구문을 추가해서 할당하지 않을 때는 null값을 주도록 설정했다.
 
 > call에 대한 정보 <https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Function/call>
 
