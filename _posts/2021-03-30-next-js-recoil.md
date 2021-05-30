@@ -1,6 +1,6 @@
 ---
 layout: post
-title: next js 에 recoil 적용과 MVVM 구조 적용기
+title: next js 에 recoil 적용하기
 description: next js에 상태관리 툴인 recoil을 적용하는 과정
 categories: Web
 tags: [Programming, Web, Frontend]
@@ -112,6 +112,4 @@ input 값의 변경에 따라 값이 잘 변경되는걸 확인할 수 있다.
 
 ---
 
-이처럼 next js 에 recoil, redux 적용은 이런식으로 하면 되지만 MVVM 의 핵심인 ViewModel은 어떤식으로 적용해야할지 아직 감은 안잡힌다. CSR에서는 이러한 문서를 찾기도 힘들고, 동기말로는 MVVM을 CSR, SSR 구조에서 정확히 지킨다고 장담하는 사람은 없어서 너무 디자인 패턴에 집착하지 말라고는 하니 염두에 두어야겠다..
-
-참고 링크 <https://medium.com/swlh/how-to-use-recoil-js-library-in-next-js-framework-33af174dae68>
+하지만 여기서 다른 페이지를 렌더링 할 경우 getInitialProps를 이용해서 state를 받아야만 다른 페이지에서도 동일하게 전역 상태를 사용할 수 있으므로 이 부분에 대해 찾아봐야 겠다.
