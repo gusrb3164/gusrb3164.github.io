@@ -21,15 +21,15 @@ Throttle은 일단 이벤트가 발생하면 일정 시간이 지나기 전까�
 
 ```js
 function throttle(fn, delay) {
-	let timer;
-	return function () {
-		if (!timer) {
-			timer = setTimeout(() => {
-				timer = null;
-				fn.apply(this, arguments);
-			}, delay);
-		}
-	};
+  let timer;
+  return function () {
+    if (!timer) {
+      timer = setTimeout(() => {
+        timer = null;
+        fn.apply(this, arguments);
+      }, delay);
+    }
+  };
 }
 ```
 
@@ -41,13 +41,13 @@ Debounce는 연이어 발생하는 이벤트들 중 일정 시간을 초과하�
 
 ```js
 function debounce(fn, delay) {
-	let timer;
-	return function () {
-		clearTimeout(timer);
-		timer = setTimeout(() => {
-			fn.apply(this);
-		}, delay);
-	};
+  let timer;
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this);
+    }, delay);
+  };
 }
 ```
 

@@ -17,11 +17,11 @@ tags: [Programming, Typescript]
 
 ```ts
 function doSomething(x: number | string) {
-	if (typeof x === 'string') {
-		console.log(x.substr(1));
-		// if 문 내에서의 x는 string이라는 타입이 확실하다는 보장이 있으므로 string 의 substr 함수도 바로 나타낼 수 있게 된다.
-	}
-	// if 문 바깥에서는 number인지 string인지 확실치 않으므로 substr을 사용할 경우에 타입스크립트 오류가 발생한다.
+  if (typeof x === 'string') {
+    console.log(x.substr(1));
+    // if 문 내에서의 x는 string이라는 타입이 확실하다는 보장이 있으므로 string 의 substr 함수도 바로 나타낼 수 있게 된다.
+  }
+  // if 문 바깥에서는 number인지 string인지 확실치 않으므로 substr을 사용할 경우에 타입스크립트 오류가 발생한다.
 }
 ```
 
@@ -31,46 +31,46 @@ function doSomething(x: number | string) {
 
 ```ts
 interface A {
-	x: number;
+  x: number;
 }
 interface B {
-	y: string;
+  y: string;
 }
 
 function doStuff(q: A | B) {
-	if ('x' in q) {
-		// q: A
-	} else {
-		// q: B
-	}
+  if ('x' in q) {
+    // q: A
+  } else {
+    // q: B
+  }
 }
 ```
 
 ```ts
 interface Foo {
-	foo: number;
-	common: string;
+  foo: number;
+  common: string;
 }
 
 interface Bar {
-	bar: number;
-	common: string;
+  bar: number;
+  common: string;
 }
 
 /**
  * arg를 Foo라고 타입 가드를 선언하는 is로 시작하는 함수 선언
  */
 function isFoo(arg: any): arg is Foo {
-	return arg.foo !== undefined;
+  return arg.foo !== undefined;
 }
 
 function doStuff(arg: Foo | Bar) {
-	if (isFoo(arg)) {
-		console.log(arg.foo); // OK
-		console.log(arg.bar); // Error!
-	} else {
-		console.log(arg.foo); // Error!
-		console.log(arg.bar); // OK
-	}
+  if (isFoo(arg)) {
+    console.log(arg.foo); // OK
+    console.log(arg.bar); // Error!
+  } else {
+    console.log(arg.foo); // Error!
+    console.log(arg.bar); // OK
+  }
 }
 ```
