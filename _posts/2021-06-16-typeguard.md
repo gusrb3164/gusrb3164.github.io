@@ -2,7 +2,7 @@
 layout: post
 title: 타입스크립트 Type Guard 에 대해 이해하기
 description: Typescript에서 타입 가능성을 좁혀주는 타입 가드에 대해서 알아보기
-categories: Web
+categories: Typescript
 tags: [Programming, Typescript]
 ---
 
