@@ -12,7 +12,7 @@ react에서 SSR(Server Side Rendering)을 하게 도와주는 next js를 도입�
 
 여기서 문제는, 기존의 react는 CSR(Client Side Rendering) 특성상 모든 파일을 한꺼번에 받아오므로 상태관리 툴인 redux, recoil 혹은 context api 를 활용한 MVVM 구조 작성에 적응이 이미 완료된 상태였다.
 
-하지만 Next js 는 말 그대로 페이지 별로 렌더링을 각각 하는 구조이므로 ViewModel 과 같은곳에서 한꺼번에 라우팅 하는 방법을 모르는 상태였다.
+하지만 Next js 는 말 그대로 페이지 별로 서버에 요청을 하는 구조이므로 ViewModel 과 같은곳에서 한꺼번에 라우팅 하는 방법을 모르는 상태였다.
 
 그래서 찾아보니 next js의 모든 page는 렌더링을 거치기 전에 \_app.js 를 거친다고 한다.
 
@@ -26,7 +26,7 @@ react에서 SSR(Server Side Rendering)을 하게 도와주는 next js를 도입�
 
 ```js
 function App({ Component, pageProps }) {
-	return <Component {...pageProps} />;
+  return <Component {...pageProps} />;
 }
 
 export default App;
@@ -44,11 +44,11 @@ export default App;
 import { RecoilRoot } from 'recoil';
 
 function App({ Component, pageProps }) {
-	return (
-		<RecoilRoot>
-			<Component {...pageProps} />
-		</RecoilRoot>
-	);
+  return (
+    <RecoilRoot>
+      <Component {...pageProps} />
+    </RecoilRoot>
+  );
 }
 
 export default App;
@@ -62,8 +62,8 @@ export default App;
 import { atom } from 'recoil';
 
 const nameState = atom({
-	key: 'nameState',
-	default: '',
+  key: 'nameState',
+  default: '',
 });
 
 export { nameState };
@@ -79,28 +79,28 @@ import { nameState } from '../components/states';
 import React from 'react';
 
 const About = () => {
-	const [name, setNameState] = useRecoilState(nameState);
+  const [name, setNameState] = useRecoilState(nameState);
 
-	const updateName = (e) => {
-		setNameState(e.target.value);
-	};
+  const updateName = e => {
+    setNameState(e.target.value);
+  };
 
-	return (
-		<Layout>
-			<h1>Profile</h1>
-			<p>Hello, {name}</p>
+  return (
+    <Layout>
+      <h1>Profile</h1>
+      <p>Hello, {name}</p>
 
-			<input
-				type="text"
-				name="name"
-				id="input_name"
-				onChange={updateName}
-				placeholder="Enter your name"
-			/>
+      <input
+        type="text"
+        name="name"
+        id="input_name"
+        onChange={updateName}
+        placeholder="Enter your name"
+      />
 
-			<Link href="/">Back to main</Link>
-		</Layout>
-	);
+      <Link href="/">Back to main</Link>
+    </Layout>
+  );
 };
 
 export default About;
@@ -112,4 +112,5 @@ input 값의 변경에 따라 값이 잘 변경되는걸 확인할 수 있다.
 
 ---
 
-하지만 여기서 다른 페이지를 렌더링 할 경우 getInitialProps를 이용해서 state를 받아야만 다른 페이지에서도 동일하게 전역 상태를 사용할 수 있으므로 이 부분에 대해 찾아봐야 겠다.
+아래의 링크에서도 next js에서 recoil을 사용하는 법이 잘 나타나 있다.
+<https://medium.com/swlh/how-to-use-recoil-js-library-in-next-js-framework-33af174dae68>
