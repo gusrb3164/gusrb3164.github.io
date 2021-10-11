@@ -102,7 +102,7 @@ $font-size-larger: $font-size-base + 4px;
 
 // Headings font size
 $font-size-headings-step: 2px;
-$font-size-headings-base: 24px;
+$font-size-headings-base: 30px;
 $font-size-headings-small: $font-size-headings-base - $font-size-headings-step;
 $font-size-headings-smaller: $font-size-headings-small - $font-size-headings-step;
 $font-size-headings-large: $font-size-headings-base + $font-size-headings-step;
@@ -125,7 +125,7 @@ $zindex-5: 1050;
 // --------------------------------------------------
 $table-width: 100%;
 $table-border-color: $gray-lighter;
-$table-font-size: 14px;
+$table-font-size: 16px;
 $table-content-alignment: left;
 $table-content-vertical: middle;
 $table-th-font-weight: 700;
@@ -138,7 +138,7 @@ $table-row-hover-bg-color: $whitesmoke;
 // Code & Code Blocks
 // --------------------------------------------------
 $code-font-family: $font-family-monospace;
-$code-font-size: 13px;
+$code-font-size: 16px;
 $code-font-size: if(
   type-of(jekyll-config('font.codes.size')) == 'number',
   jekyll-config('font.codes.size') + px,
@@ -156,7 +156,7 @@ $btn-font-weight: normal;
 $btn-default-radius: 0;
 $btn-default-bg: $black-deep;
 $btn-default-color: white;
-$btn-default-font-size: 14px;
+$btn-default-font-size: 16px;
 $btn-default-border-width: 2px;
 $btn-default-border-color: $black-deep;
 $btn-default-hover-bg: white;
@@ -213,7 +213,7 @@ $brand-color: white;
 $brand-hover-color: white;
 $brand-bg: $black-deep;
 
-$logo-font-size: 20px;
+$logo-font-size: 22px;
 $logo-font-size: if(
   type-of(jekyll-config('font.logo.size')) == 'number',
   jekyll-config('font.logo.size') + px,
@@ -221,7 +221,7 @@ $logo-font-size: if(
 );
 
 $site-subtitle-color: $grey-dark;
-$subtitle-font-size: 13px;
+$subtitle-font-size: 16px;
 $subtitle-color: $grey-dark;
 
 // Menu
@@ -248,7 +248,7 @@ $posts-collapse-left: 55px;
 $posts-collapse-left-mobile: 5px;
 
 $read-more-color: white;
-$read-more-font-size: 14px;
+$read-more-font-size: 16px;
 $read-more-bg-color: $black-deep;
 $read-more-border-radius: 0;
 
@@ -270,15 +270,15 @@ $site-author-name-color: $whitesmoke;
 $site-author-name-align: center;
 $site-author-name-weight: normal;
 
-$site-description-font-size: 14px;
+$site-description-font-size: 16px;
 $site-description-color: $grey-dark;
 $site-description-margin-top: 5px;
 $site-description-align: center;
 
 $site-state-align: center;
-$site-state-item-count-font-size: 18px;
+$site-state-item-count-font-size: 20px;
 $site-state-item-count-color: inherit;
-$site-state-item-name-font-size: 13px;
+$site-state-item-name-font-size: 15px;
 $site-state-item-name-color: inherit;
 $site-state-item-border-color: $black-dim;
 
