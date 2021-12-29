@@ -10,16 +10,16 @@ tags: [Programming, Backend]
 
 ```js
 let newQuizIds = [];
-quizs.forEach(async (quiz) => {
-	const tmp = await new quizModel(quiz).save();
-	newQuizIds.push(tmp._id);
+quizs.forEach(async quiz => {
+  const tmp = await new quizModel(quiz).save();
+  newQuizIds.push(tmp._id);
 });
 console.log(newQuizIds);
 ```
 
 분명 newQuizIds log를 출력하면 push된 값들이 나와야하는데 [] 이렇게 빈 배열만 나오는 것이다. 그래서 몇시간동안 찾아보니,
 
-### foreach 는 배열 요소를 병렬로 돌면서 callback을 실행할 뿐, callback이 끝날때 까지 기다렸다가 다음 callback을 실행하는 것이 아니라고 한다. 즉, foreach 자신이 실행하는 코드가 비동기를 하든 안하든 관심이 없이 넘어간다는 것이다
+### foreach 는 배열 요소를 순차적으로 돌면서 callback을 실행할 뿐, callback이 끝날때 까지 기다렸다가 다음 callback을 실행하는 것이 아니라고 한다. 즉, foreach 자신이 실행하는 코드가 비동기를 하든 안하든 관심이 없이 넘어간다는 것이다
 
 그래서 newQuizIds 배열에 값이 담기기도 전에 log 출력문이 실행되는 것이였다.
 
@@ -32,8 +32,8 @@ console.log(newQuizIds);
 ```js
 let newQuizIds = [];
 for (let quiz of quizs) {
-	const tmp = await new quizModel(quiz).save();
-	newQuizIds.push(tmp._id);
+  const tmp = await new quizModel(quiz).save();
+  newQuizIds.push(tmp._id);
 }
 console.log(newQuizIds);
 ```
@@ -50,9 +50,9 @@ console.log(newQuizIds);
 
 ```js
 async function parallel(array) {
-	const promises = array.map((url) => async_download(url));
-	await Promise.all(promises);
-	//위의 병렬처리가 끝나야 log출력이 실행된다.
-	console.log('all done :)');
+  const promises = array.map(url => async_download(url));
+  await Promise.all(promises);
+  //위의 병렬처리가 끝나야 log출력이 실행된다.
+  console.log('all done :)');
 }
 ```
