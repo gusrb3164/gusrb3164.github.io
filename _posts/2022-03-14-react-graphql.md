@@ -6,7 +6,7 @@ categories: Web
 tags: [Programming, Web, GraphQL, React]
 ---
 
-저는 GraphQL을 이제 막 공부하기 시작한 단계이지만, GraphQL의 개념을 이해하고서부터 데이터를 중심으로 페이스북(Meta)이 React부터 GraphQL까지 걸어왔던 과정에 대해 배운점이 많다고 생각했습니다. 그래서 해당 과정과 이를 통해 제가 느낀점을 글로 써봅니다.
+저는 GraphQL을 이제 막 공부하기 시작한 단계이지만, GraphQL의 개념을 이해하고서부터 데이터를 중심으로 페이스북(Meta)이 React부터 GraphQL까지 걸어왔던 과정에 대해 배운점이 많다고 생각했습니다. 그래서 해당 과정을 정리하고, 이를 통해 제가 느낀점을 글로 써봅니다.
 
 ## React
 
