@@ -31,7 +31,6 @@ Reduce unused JavaScript가 약 1.3초정도 감소했습니다. SEO가 상승�
 
 자바스크립트 관리는 이후에도 계속 필요하지만 그 다음 먼저 중요하다고 생각한 것은 이미지 resource를 줄이는 것이였습니다. 아무래도 이미지나 비디오가 전송 용량의 대다수를 차지하는 큰 형식이기 때문인데다 저희 플랫폼은 로드하는 이미지가 매우 많았기 때문입니다.
 
-
 ![network-image](/assets/images/posts/network-image.png)
 > 사진에 나타나는 network리스트는 모두 메인 페이지에서 불러오던 image입니다.
 
