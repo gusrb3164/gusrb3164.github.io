@@ -1,6 +1,6 @@
 ---
 layout: post
-title: axios interceptors를 활용한 jwt 토큰 관리 - frontend jwt
+title: axios interceptors와 refresh token을 활용한 jwt 토큰 관리
 description: axios 요청에 기반하는 frontend 구조에서 axios interceptors를 활용하여 access token과 refresh token을 관리해보자
 categories: Web
 tags: [Programming, Frontend]
@@ -8,9 +8,11 @@ tags: [Programming, Frontend]
 
 새로운 도메인을 개발하면서 jwt를 활용한 인가 처리를 적용하기 위해 frontend와 backend 구현을 모두 맏았습니다. 이 과정에서 access token과 refresh token을 관리하기 위해 어떤 과정을 고려했는지, axios를 어떻게 활용하였는지 기록한 글입니다.
 
-## [JWT](https://jwt.io/)
+## 1. [JWT](https://jwt.io/)
 
-기본적인 access token만으로도 서버에서 secret key를 통한 서명으로 인해 토큰 위변조 여부를 확인하여 사용자 인가를 처리할 수 있습니다. 하지만 **탈취 가능성**을 고려하여 대부분 access token은 만료 시간을 짧게 설정하여 탈취 후 악용의 위험성을 최소화 합니다.
+![jwt logo](/assets/images/posts/jwt.png)
+
+jwt와 같은 bearer 토큰은 기본적인 access token만으로도 서버에서 secret key를 통한 서명으로 인해 토큰 위변조 여부를 확인하여 사용자 인가를 처리할 수 있습니다. 하지만 **탈취 가능성**을 고려하여 대부분 access token은 만료 시간을 짧게 설정하여 탈취 후 악용의 위험성을 최소화 합니다.
 
 이 과정에서 정상적인 사용자는 짧은 만료 시간으로 인해 잦은 access token 재발급의 불편함을 겪어야 합니다. 그래서 이 불편함을 해소하고, access token의 **stateless한 특징에서 발생하는 보안 취약점**을 보완하고자 refresh token을 활용합니다.
 
@@ -20,7 +22,7 @@ refresh token은 상대적으로 access token보다 긴 만료시간을 가지�
 
 ---
 
-## refresh token을 활용하여 access token을 갱신하는 과정
+## 2. refresh token을 활용하여 access token을 갱신하는 과정
 
 access token과 refresh token을 다루기 위해선 **access token을 갱신하는 과정**과 **refresh token을 갱신하는 과정** 2가지를 고려해야 합니다.
 
@@ -67,7 +69,7 @@ refresh token을 갱신하는 방식은 2가지로 분류했습니다.
 
 ---
 
-## [axios interceptors](https://axios-http.com/kr/docs/interceptors)
+## 3. [axios interceptors](https://axios-http.com/kr/docs/interceptors)
 
 axios interceptors 기능을 활용하면 response와 request를 가로채어 추가적인 작업을 할 수 있습니다.
 
@@ -76,7 +78,7 @@ axios interceptors 기능을 활용하면 response와 request를 가로채어 �
 
 그러면 response 와 request 요청마다 axios interceptors를 활용하여 저희가 요청 전, 후에 다뤄야 할 callback 함수들을 붙여봅시다.
 
-### 1. axios interceptors request
+### (1) axios interceptors request
 
 우선 client localStorage에 저장된 jwt 토큰을 요청마다 Header의 Authorization에 담아서 보낸다고 가정하고 axios interceptors request를 먼저 정의해 보겠습니다.
 
@@ -102,7 +104,7 @@ axios.interceptors.request.use((config) => {
 
 refresh 요청을 제외한 요청들은 access token을 authorization에 담아야 하므로 해당 조건을 분기해주어 알맞는 토큰을 localStorage에서 가져와 Bearer 형식으로 config에 저장해주면 되는 간단한 로직입니다.
 
-### 2. axios interceptors response
+### (2) axios interceptors response
 
 다음은 client가 401 에러를 받았을 때 refresh 요청을 보낸 뒤에 이전에 보냈던 요청을 재요청 하는 callback함수를 axios interceptors response에 정의해 보겠습니다.
 
@@ -160,16 +162,177 @@ response callback 함수는 정상적인 응답을 첫 번째 인자로, 에러 
 
 ---
 
-## refresh token 중복 요청 해결하기
+## 4. refresh 중복 요청 문제
 
 이로써 제가 생각했던 시나리오를 axios interceptors를 활용하여 모두 작성했지만 여기서 한가지 문제점이 존재합니다.
 
 바로 client 측에서 만료된 access token으로 다수의 요청을 동시에 server에 보내서 각 요청마다 refresh 요청을 독립적으로 보내는 경우입니다.
 
-이 경우를 추가적으로 다뤄보도록 하겠습니다.
+이게 왜 문제가 되는걸까요?
 
-<!-- 이게 왜 문제가 되는걸까요?
+예를 들어 아래의 방식처럼 access token을 필요로 하는 2개의 api 요청을 거의 동시에 보내고 이후에 refresh 
+요청을 각각의 interceptor에서 보냈을 때, refresh token 또한 새로 갱신해 줘야 하는 상황이라고 가정해봅시다.
 
-### 1. race condition을 고려한 subscription 방식
+![중복 요청 예제](/assets/images/posts/2022-08-07/7.png)
 
-### 2. refresh 요청 memoization 방식 -->
+그러면 server 측에서는 각각의 요청에 대해 access token을 새로 sign 함과 동시에 refresh token도 2개를 sign하게 됩니다.
+
+여기서 access token은 **stateless**하기 때문에 어떤 token을 client에서 저장하든 문제가 되지 않지만, refresh token은 DB에서 1개만 관리하기 때문에 DB에 최종적으로 override된 refresh token을 client에게 마지막 response로 보내줘야 합니다.
+
+하지만 client측에서 response를 항상 순차적으로 받는다는 보장은 없기에 DB에 저장된 refresh token과 다른 refresh token이 최종적으로 client localStorage에 저장될 수 있습니다.
+
+![중복 요청 예제](/assets/images/posts/2022-08-07/8.png)
+
+따라서 이러한 중복 요청 문제는 access token과 refresh token을 불필요하게 여러번 sign하는 문제점과, DB에 저장된 refresh token과 다른 token을 client가 지니게 될 수 있다는 문제점이 존재합니다.
+
+---
+
+## 5. refresh 중복 요청 해결하기
+
+이러한 중복 요청을 해결하기 위해선 client 측에서 여러번 가는 refresh 요청들을 한번의 refresh 요청만 가도록 처리해야 합니다. 요청을 한번만 가도록 처리하기 위해 조사한 방식은 2가지입니다.
+
+1. race condition and subscription
+2. memoization refresh api
+
+### (1) race condition and subscription
+
+1. 가장 먼저 요청한 refresh api를 다룰 때 lock 변수를 이용하여 그 뒤에 이어지는 refresh 요청들은 요청을 보내지 않도록 합니다.
+2. 그 뒤의 요청들은 구독리스트에서 대기하고 있습니다.
+3. 처음 요청의 응답이 옴과 동시에 구독리스트에 담긴 대기 api들을 호출합니다.
+4. 호출된 구독 api들은 첫 요청으로 갱신된 access token과 refresh token을 가지고 기존 api를 재요청 보냅니다.
+
+```ts
+let lock = false;
+let subscribers: ((token: string) => void)[] = [];
+
+function subscribeTokenRefresh(cb: (token: string) => void) {
+  subscribers.push(cb);
+}
+
+function onRrefreshed(token: string) {
+  subscribers.forEach((cb) => cb(token));
+}
+
+const getRefreshToken = async (): Promise<string | void> => {
+  try {
+    const { data: { accessToken, refreshToken } } = await axios.get<{ accessToken: string; refreshToken: string | null }>(REFRESH_URL);
+
+    lock = false;
+    onRrefreshed(accessToken);
+    subscribers = [];
+    localStorage.setItem('accessToken', accessToken);
+
+    if (refreshToken !== null) {
+      localStorage.setItem('refreshToken', refreshToken);
+    }
+
+    return accessToken;
+  } catch (e) {
+    lock = false;
+    subscribers = [];
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+  }
+}
+
+axios.interceptors.response.use(
+  (res) => res,
+  async (err) => {
+    const {
+      config,
+      response: { status },
+    } = err;
+    const originalRequest = config;
+
+    if (config.url === REFRESH_URL || status !== 401) return Promise.reject(err);
+
+    if (lock) {
+      return new Promise((resolve) => {
+        subscribeTokenRefresh((token: string) => {
+          originalRequest.headers.Authorization = `Bearer ${token}`;
+          resolve(axiosV2(originalRequest));
+        });
+      });
+    }
+    lock = true;
+    const accessToken = await getRefreshToken()
+
+    if (typeof accessToken === 'string') {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+      return axios(config);
+    }
+
+    return  Promise.reject(err);
+  }
+);
+```
+
+### (2) memoization refresh api
+
+1. 처음 요청된 refresh api를 일정시간 memoization 합니다.
+2. memoization된 시간동안 추가적으로 요청되는 refresh 요청들은 재사용됩니다.
+3. refresh 응답이 오면은 memoization된 api를 기다리던 요청들은 동일한 access token과 refresh token으로 기존 api를 재요청 보낼 수 있습니다.
+
+```ts
+import mem from 'mem';
+
+const getRefreshToken = mem(async (): Promise<string | void> => {
+  try {
+    const { data: { accessToken, refreshToken } } = await axios.get<{ accessToken: string; refreshToken: string | null }>(REFRESH_URL);
+
+    localStorage.setItem('accessToken', accessToken);
+
+    if (refreshToken !== null) {
+      localStorage.setItem('refreshToken', refreshToken);
+    }
+
+    return accessToken;
+  } catch (e) {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+  }
+}, { maxAge: 1000 })
+
+
+axios.interceptors.response.use(
+  (res) => res,
+  async (err) => {
+    const { config, response: { status } } = err;
+
+    if (config.url === REFRESH_URL || status !== 401 || config.sent) {
+      return Promise.reject(err);
+    }
+
+    config.sent = true;
+    const accessToken = await getRefreshToken();
+
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+      return axios(config);
+    }
+
+    return Promise.reject(err);
+  }
+);
+```
+
+2가지 방식 모두 같은 결과를 이뤄낼 수 있으나 첫 번째의 구독 방식은 함수 외부에서 전역 변수에 의존해서 구현해야 하기 때문에 코드의 복잡도가 보다 높다고 생각했습니다.
+
+따라서 기존의 callback 함수를 최대한 건드리지 않으면서 보다 직관적인 코드를 작성할 수 있는 memoization 방식을 선택했습니다.
+
+> 위의 예제에서는 memoization을 이용하기 위해 mem library를 사용했습니다.
+---
+
+## 마치며
+
+jwt는 확장성이 높은 인가 처리 방식이면서 refresh token을 활용한다면 보안을 보다 강화할 수 있습니다.
+
+다만 이러한 token들을 어디에 저장하고 어떻게 전달하면서 갱신하고, 다양한 기기에서 다중 로그인을 지원하기 위해 여러개를 어떻게 다룰 것인지에 따라 구현 난이도가 기하급수적으로 올라가며 best practice로 다뤄지는 문서를 찾는것도 쉽지 않습니다. 그래서 제가 선택한 방식으로 당장 프로젝트에 적용했지만 더 개선할 수 있는 방식을 찾는다면 지속적으로 업데이트 해볼 생각입니다.
+
+이 글이 인가처리를 구현하려는 분들에게 많은 도움이 되길 바랍니다.
+
+### 참고문서
+
+- memoization 기법 <https://gist.github.com/ModPhoenix/f1070f1696faeae52edf6ee616d0c1eb>
+
+- subscription 기법 <https://dev.to/franciscomendes10866/how-to-use-axios-interceptors-b7d>
