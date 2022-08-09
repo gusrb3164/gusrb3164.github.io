@@ -23,6 +23,8 @@ console.log(newQuizIds);
 
 그래서 newQuizIds 배열에 값이 담기기도 전에 log 출력문이 실행되는 것이였다.
 
+> 생각해보면 async/await 함수를 순차적으로 실행하려면 함수를 호출하는 곳도 async/await 로직으로 구현되어야 하는데 foreach 내부 동작 방식은 그렇지 않기 때문에 당연한 것이다.
+
 ---
 
 ## 그러면 어떻게 해결할 까?
