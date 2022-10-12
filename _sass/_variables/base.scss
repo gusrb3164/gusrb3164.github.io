@@ -5,6 +5,80 @@
 // Colors
 // colors for use across theme.
 // --------------------------------------------------
+/* thin */
+@font-face {
+  font-family: 'Spoqa';
+  font-style: normal;
+  font-weight: 200;
+  font-display: fallback;
+  src: local(''),
+    url('./fonts/SpoqaHanSansNeo-Thin.eot'),
+    url('./fonts/SpoqaHanSansNeo-Thin.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/SpoqaHanSansNeo-Thin.woff2') format('woff2'),
+    url('./fonts/SpoqaHanSansNeo-Thin.woff') format('woff'),
+    url('./fonts/SpoqaHanSansNeo-Thin.ttf') format('truetype'),
+    url('./fonts/SpoqaHanSansNeo-Thin.otf') format('opentype'); 
+}
+
+/* light */
+@font-face {
+  font-family: 'Spoqa';
+  font-style: normal;
+  font-weight: 300;
+  font-display: fallback;
+  src: local(''),
+    url('./fonts/SpoqaHanSansNeo-Light.eot'),
+    url('./fonts/SpoqaHanSansNeo-Light.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/SpoqaHanSansNeo-Light.woff2') format('woff2'),
+    url('./fonts/SpoqaHanSansNeo-Light.woff') format('woff'),
+    url('./fonts/SpoqaHanSansNeo-Light.ttf') format('truetype'),
+    url('./fonts/SpoqaHanSansNeo-Light.otf') format('opentype'); 
+}
+
+/* normal */
+@font-face {
+  font-family: 'Spoqa';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: local(''),
+    url('./fonts/SpoqaHanSansNeo-Regular.eot'),
+    url('./fonts/SpoqaHanSansNeo-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2'),
+    url('./fonts/SpoqaHanSansNeo-Regular.woff') format('woff'),
+    url('./fonts/SpoqaHanSansNeo-Regular.ttf') format('truetype'),
+    url('./fonts/SpoqaHanSansNeo-Regular.otf') format('opentype'); 
+}
+
+/* medium */
+@font-face {
+  font-family: 'Spoqa';
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+  src: local(''),
+    url('./fonts/SpoqaHanSansNeo-Medium.eot'),
+    url('./fonts/SpoqaHanSansNeo-Medium.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2'),
+    url('./fonts/SpoqaHanSansNeo-Medium.woff') format('woff'),
+    url('./fonts/SpoqaHanSansNeo-Medium.ttf') format('truetype'),
+    url('./fonts/SpoqaHanSansNeo-Medium.otf') format('opentype'); 
+}
+
+/* BOLD */
+@font-face {
+  font-family: 'Spoqa';
+  font-style: normal;
+  font-weight: 700;
+  font-display: fallback;
+  src: local(''),
+    url('./fonts/SpoqaHanSansNeo-Bold.eot'),
+    url('./fonts/SpoqaHanSansNeo-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2'),
+    url('./fonts/SpoqaHanSansNeo-Bold.woff') format('woff'),
+    url('./fonts/SpoqaHanSansNeo-Bold.ttf') format('truetype'),
+    url('./fonts/SpoqaHanSansNeo-Bold.otf') format('opentype'); 
+}
 
 $whitesmoke: #f5f5f5;
 $gainsboro: #eee;
@@ -49,40 +123,16 @@ $selection-color: white;
 // Font, line-height, and elements colors.
 // --------------------------------------------------
 
-@function get_font_family($config) {
-  $custom_family: jekyll-config('font.' + $config + '.family');
-  @return if(type-of($custom_family) == 'string', $custom_family, null);
-}
-
 // Font families.
-$font-family-chinese: 'PingFang SC', 'Microsoft YaHei';
-
-$font-family-base: $font-family-chinese, sans-serif;
-$font-family-base: if(
-  get_font_family('global'),
-  (get_font_family('global'), $font-family-chinese, sans-serif),
-  $font-family-base
-);
+$font-family-base: Spoqa, sans-serif;
 
 $font-family-logo: $font-family-base;
-$font-family-logo: if(get_font_family('logo'), (get_font_family('logo'), $font-family-base), $font-family-logo);
 
 $font-family-headings: $font-family-base;
-$font-family-headings: if(
-  get_font_family('headings'),
-  (get_font_family('headings'), $font-family-base),
-  $font-family-headings
-);
 
 $font-family-posts: $font-family-base;
-$font-family-posts: if(get_font_family('posts'), (get_font_family('posts'), $font-family-base), $font-family-posts);
 
-$font-family-monospace: consolas, Menlo, $font-family-chinese, monospace;
-$font-family-monospace: if(
-  get_font_family('codes'),
-  (get_font_family('codes'), consolas, Menlo, $font-family-chinese, monospace),
-  $font-family-monospace
-);
+$font-family-monospace: consolas, Menlo, Spoqa, monospace;
 
 $font-family-icons: 'FontAwesome';
 
