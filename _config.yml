@@ -4,11 +4,11 @@
 # ---------------------------------------------------------------
 
 # Site
-title: HyeonGyu
+title: HyunGyu
 subtitle: 함수들을 조립하는 것을 좋아합니다.
 description: >
   blog.push_back("Dev, Daily")
-author: HyeonGyu-Kim
+author: HyunGyu-Kim
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
 language: en
 date_format: '%Y-%m-%d'
